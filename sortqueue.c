@@ -1,5 +1,5 @@
 #include <stdio.h>
-int const MAX = 1000;
+int const MAX = 100;
 int queue[MAX];
 int front = -1, rear = -1;
 
@@ -20,6 +20,7 @@ void enqueue(int val){
     if(isFull()) printf("Queue Full. Nothing to enqueue\n");
     rear++;
     queue[rear] = val;
+    printf("%d queued", val);
 }
 
 int dequeue(){
@@ -29,33 +30,16 @@ int dequeue(){
      if(front == rear){
         front = rear = -1;
     }
-    else front++;       
+    else {
+        front++;
+        printf("%d Dequeued", deqval);
+    }       
     }
 
     else {
         printf("Queue Empty, Nothing to dequeue...\n");
     }
     return deqval;
-}
-
-void reverseQueue() {
-    if (isEmpty()) {
-        printf("Queue is empty. Nothing to reverse.\n");
-        return;
-    }
-
-    int stack[MAX];
-    int top = -1;
-
-    while (!isEmpty()) {
-        stack[++top] = dequeue();
-    }
-
-    while (top != -1) {
-        enqueue(stack[top--]);
-    }
-
-    printf("Queue reversed successfully.\n");
 }
 
 void display() {
@@ -66,6 +50,23 @@ void display() {
     printf("Queue elements: ");
     for (int i = front; i <= rear; i++) {
         printf("%d ", queue[i]);
+    }
+    printf("\n");
+}
+
+void bubble(){
+    for(int i = front ; i<rear; i++){
+        for(int j= front ; j<rear ; j++){
+            if(queue[j]>queue[j+1]){
+                int temp = queue[j];
+                queue[j] = queue[j+1];
+                queue[j+1] = temp;
+            }
+        }
+    }
+    printf("Sorted array is: ");
+    for(int i = front ; i<=rear ;i++){
+        printf("%d ",queue[i]);
     }
     printf("\n");
 }
@@ -82,6 +83,10 @@ int main(){
     enqueue(15);
     enqueue(24);
     display();
-    reverseQueue();
+    bubble();
+    enqueue(30);
     display();
+    bubble();
+
+
 }
